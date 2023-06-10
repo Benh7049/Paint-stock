@@ -9,7 +9,7 @@ const App = () => {
   const [paintDict, setPaintDict] = useState(null);
   useEffect(() => {
     Axios.get("http://localhost:5000/api/paint").then((res) => {
-      setPaintDict(res.data)
+      setPaintDict(res.data);
     });
   }, []);
   return (

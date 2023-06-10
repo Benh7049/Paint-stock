@@ -45,7 +45,7 @@ const PaintForm = () => {
   };
 
   const postPaint = () => {
-    Axios.post("http://localhost:5000/api/paint", form)
+    Axios.post("http://localhost:5000/api/paint", form);
   };
 
   return (

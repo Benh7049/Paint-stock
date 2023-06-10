@@ -25,3 +25,8 @@ app.post("/api/paint", (req, res) => {
 app.delete("/api/paint/:id",(req,res)=>{
   delete paintDict[String(req.params.id)]
 })
+
+app.put("/api/paint/:id",(req,res)=>{
+  const {paintName,status} = req.body
+  paintDict[String(req.params.id)] = {paintName,status}
+})
