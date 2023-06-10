@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 import Axios from "axios";
 //todo: get new data right away
 const App = () => {
-  const [paintList, setPaintList] = useState(null);
+  const [paintDict, setPaintDict] = useState(null);
   useEffect(() => {
     Axios.get("http://localhost:5000/api/paint").then((res) => {
-      setPaintList(res.data)
+      setPaintDict(res.data)
     });
   }, []);
   return (
@@ -19,7 +19,7 @@ const App = () => {
           <h1>Paint Stock</h1>
         </Col>
         <Col className="content-col" xs={8}>
-          <SwimLane paintList={paintList}></SwimLane>
+          <SwimLane paintDict={paintDict}></SwimLane>
         </Col>
         <Col className="content-col" xs={8}>
           <PaintForm></PaintForm>
