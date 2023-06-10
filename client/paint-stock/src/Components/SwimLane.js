@@ -1,20 +1,19 @@
 import React from "react";
-import {Table } from "react-bootstrap";
+import { Card, Row} from "react-bootstrap";
+
 //todo: display none when no data
-const SwimLane = () => {
+const SwimLane = ({ paintList }) => {
   return (
-    <Table>
-      <thead>
-        <tr>
-          <th className="col-4">Out of stock</th>
-          <th className="col-4">Low</th>
-          <th className="col-4">Available</th>
-        </tr>
-        <tr>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </Table>
+    <Card style={{ width: "100%", textAlign: "center" }}>
+      <Row>
+        {paintList &&
+          paintList.map((paint) => (
+            <Card.Text>
+              {paint.status} : {paint.paintName}
+            </Card.Text>
+          ))}
+      </Row>
+    </Card>
   );
 };
 

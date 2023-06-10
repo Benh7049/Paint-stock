@@ -1,5 +1,6 @@
 import { React, useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
+import Axios from "axios";
 
 const PaintForm = () => {
   const [form, setForm] = useState({});
@@ -38,7 +39,13 @@ const PaintForm = () => {
     // check for errors
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-    } 
+    } else {
+      postPaint();
+    }
+  };
+
+  const postPaint = () => {
+    Axios.post("http://localhost:5000/api/paint", form)
   };
 
   return (
