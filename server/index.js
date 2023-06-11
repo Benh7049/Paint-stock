@@ -54,7 +54,17 @@ app.delete("/api/paint/:id", (req, res) => {
 });
 
 app.put("/api/paint/:id", (req, res) => {
-  const { paintName, status } = req.body;
-  paintDict[String(req.params.id)] = { paintName, status };
-  res.send(paintDict);
+  const id = req.params.id;
+  const { paintName, status } = req.body
+  db.query(
+    "UPDATE paints SET paintName = ?, status= ? WHERE id = ?",
+    [paintName,status, id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
 });

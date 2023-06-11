@@ -10,7 +10,7 @@ const PaintCard = ({ paint }) => {
   return (
     <div>
       <p>{paint.paintName}</p>
-      <EditModal Paint={paint.paintName} id={paint.id}>
+      <EditModal Paint={paint}>
         Edit
       </EditModal>
       <Button onClick={()=>deletePaint(paint.id)}>Remove</Button>

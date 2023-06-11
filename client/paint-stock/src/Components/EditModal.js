@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { Button, Modal, Form, Col, Row } from "react-bootstrap";
 import Axios from "axios";
 
-const EditModal = ({ Paint, id}) => {
+const EditModal = ({ Paint}) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -50,7 +50,7 @@ const EditModal = ({ Paint, id}) => {
   };
 
   const editPaint = () => {
-    Axios.put(`http://localhost:5000/api/paint/${id}`,{...form});
+    Axios.put(`http://localhost:5000/api/paint/${Paint.id}`,form);
   };
 
   return (
