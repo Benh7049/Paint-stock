@@ -4,8 +4,8 @@ import { Card, Row, Button, Modal, Form } from "react-bootstrap";
 import EditModal from "./EditModal";
 
 //todo: display none when no data
-const SwimLane = ({ paintDict }) => {
-  const deletePaint = ({id}) => {
+const SwimLane = ({ paintDict}) => {
+  const deletePaint = (id) => {
     Axios.delete(`http://localhost:5000/api/paint/${id}`);
   };
   return (

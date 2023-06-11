@@ -11,7 +11,7 @@ const App = () => {
     Axios.get("http://localhost:5000/api/paint").then((res) => {
       setPaintDict(res.data);
     });
-  }, []);
+  }, [paintDict]);
   return (
     <Container fluid>
       <Row>
@@ -22,7 +22,7 @@ const App = () => {
           <SwimLane paintDict={paintDict}></SwimLane>
         </Col>
         <Col className="content-col" xs={8}>
-          <PaintForm></PaintForm>
+          <PaintForm setPaintDict={setPaintDict}></PaintForm>
         </Col>
       </Row>
     </Container>

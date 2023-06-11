@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import Axios from "axios";
 
-const PaintForm = () => {
+const PaintForm = ({setPaintDict}) => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
 
@@ -45,7 +45,9 @@ const PaintForm = () => {
   };
 
   const postPaint = () => {
-    Axios.post("http://localhost:5000/api/paint", form);
+    Axios.post("http://localhost:5000/api/paint", form).then((res)=>{
+      console.log(res)
+    })
   };
 
   return (
