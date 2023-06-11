@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import { Button, Card, Row, Col } from "react-bootstrap";
 import EditModal from "./EditModal";
 import Axios from "axios";
 
@@ -8,12 +8,16 @@ const PaintCard = ({ paint }) => {
     Axios.delete(`http://localhost:5000/api/paint/${id}`);
   };
   return (
-    <div>
+    <div className="mb-2">
       <p>{paint.paintName}</p>
-      <EditModal Paint={paint}>
-        Edit
-      </EditModal>
-      <Button onClick={()=>deletePaint(paint.id)}>Remove</Button>
+      <Row>
+        <Col xs={12} className="mb-2">
+          <EditModal Paint={paint}>Edit</EditModal>
+        </Col>
+        <Col xs={12} className="mb-2">
+          <Button onClick={() => deletePaint(paint.id)}>Remove</Button>
+        </Col>
+      </Row>
     </div>
   );
 };

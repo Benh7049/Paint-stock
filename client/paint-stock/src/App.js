@@ -4,7 +4,6 @@ import SwimLane from "./Components/SwimLane";
 import PaintForm from "./Components/PaintForm";
 import { useEffect, useState } from "react";
 import Axios from "axios";
-//todo: get new data right away
 const App = () => {
   const [paintList, setPaintList] = useState(null);
   useEffect(() => {
