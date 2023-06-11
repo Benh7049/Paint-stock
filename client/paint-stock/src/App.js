@@ -11,7 +11,7 @@ const App = () => {
     Axios.get("http://localhost:5000/api/paint").then((res) => {
       setPaintList(res.data);
     });
-  }, []);
+  }, [paintList]);
   return (
     <Container fluid>
       <Row>

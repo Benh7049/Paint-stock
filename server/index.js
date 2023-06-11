@@ -55,10 +55,10 @@ app.delete("/api/paint/:id", (req, res) => {
 
 app.put("/api/paint/:id", (req, res) => {
   const id = req.params.id;
-  const { paintName, status } = req.body
+  const { paintName, status } = req.body;
   db.query(
     "UPDATE paints SET paintName = ?, status= ? WHERE id = ?",
-    [paintName,status, id],
+    [paintName, status, id],
     (err, result) => {
       if (err) {
         console.log(err);
