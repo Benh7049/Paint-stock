@@ -6,9 +6,6 @@ import PaintCard from "./PaintCard";
 
 //todo: display none when no data
 const SwimLane = ({paintList}) => {
-  const deletePaint = (id) => {
-    Axios.delete(`http://localhost:5000/api/paint/${id}`);
-  };
   const columns = [
     {
       id: "Low",

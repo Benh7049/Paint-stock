@@ -15,8 +15,6 @@ const db = mysql.createConnection({
   database: "paintdb",
 });
 
-paintDict = {};
-
 app.listen(5000, () => {
   console.log("server started on port 5000");
 });
@@ -26,7 +24,6 @@ app.get("/api/paint", (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(result)
       res.send(result);
     }
   });
@@ -46,8 +43,14 @@ app.post("/api/paint", (req, res) => {
 });
 
 app.delete("/api/paint/:id", (req, res) => {
-  delete paintDict[String(req.params.id)];
-  res.send(paintDict);
+  const id = req.params.id;
+  db.query("DELETE FROM paints WHERE id = ?", id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
 });
 
 app.put("/api/paint/:id", (req, res) => {
