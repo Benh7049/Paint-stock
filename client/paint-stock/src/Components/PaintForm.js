@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import Axios from "axios";
 
-const PaintForm = ({setPaintDict}) => {
+const PaintForm = () => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
 

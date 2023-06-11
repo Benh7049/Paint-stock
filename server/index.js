@@ -22,7 +22,14 @@ app.listen(5000, () => {
 });
 
 app.get("/api/paint", (req, res) => {
-  res.send(paintDict);
+  db.query("SELECT * FROM paints", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result)
+      res.send(result);
+    }
+  });
 });
 
 app.post("/api/paint", (req, res) => {

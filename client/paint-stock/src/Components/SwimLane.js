@@ -4,23 +4,23 @@ import { Card, Row, Button, Modal, Form } from "react-bootstrap";
 import EditModal from "./EditModal";
 
 //todo: display none when no data
-const SwimLane = ({ paintDict}) => {
+const SwimLane = ({paintList}) => {
   const deletePaint = (id) => {
     Axios.delete(`http://localhost:5000/api/paint/${id}`);
   };
   return (
     <Card style={{ width: "100%", textAlign: "center" }}>
       <Row>
-        {paintDict &&
-          Object.keys(paintDict).map((id) => (
+        {paintList &&
+          paintList.map((paint) => (
             <div>
               <Card.Text>
-                {paintDict[id].paintName} : {paintDict[id].status}
+                {paint.paintName} : {paint.status}
               </Card.Text>
-              <EditModal Paint={paintDict[id]} id={id}></EditModal>
+              <EditModal Paint={paint} id={paint.id}></EditModal>
               <Button
                 onClick={() => {
-                  deletePaint(id);
+                  deletePaint(paint.id);
                 }}
               >
                 Delete
