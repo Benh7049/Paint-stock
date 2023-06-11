@@ -9,7 +9,7 @@ const App = () => {
   const [paintList, setPaintList] = useState(null);
   useEffect(() => {
     Axios.get("http://localhost:5000/api/paint").then((res) => {
-      setPaintList(res.data)
+      setPaintList(res.data);
     });
   }, []);
   return (
@@ -19,7 +19,7 @@ const App = () => {
           <h1>Paint Stock</h1>
         </Col>
         <Col className="content-col" xs={8}>
-          <SwimLane paintList={paintList}></SwimLane>
+          <>{paintList && <SwimLane paintList={paintList}></SwimLane>}</>
         </Col>
         <Col className="content-col" xs={8}>
           <PaintForm></PaintForm>
