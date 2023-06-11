@@ -2,7 +2,13 @@ import { React, useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import Axios from "axios";
 
-const PaintForm = () => {
+const PaintForm = ({
+  paintFieldText,
+  statusFieldText,
+  submitBttnText,
+  method,
+  paintID
+}) => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
 
@@ -40,12 +46,20 @@ const PaintForm = () => {
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
     } else {
-      postPaint();
+      if (method === "POST") {
+        postPaint();
+      } else if (method == "PUT") {
+        editPaint(paintID);
+      }
     }
   };
 
   const postPaint = () => {
-    Axios.post("http://localhost:5000/api/paint", form)
+    Axios.post("http://localhost:5000/api/paint", form);
+  };
+
+  const editPaint = (id) => {
+    Axios.put(`http://localhost:5000/api/paint/${id}`, form);
   };
 
   return (
@@ -54,7 +68,7 @@ const PaintForm = () => {
         <Form.Group as={Col}>
           <Form.Control
             type="text"
-            placeholder="Enter paint name"
+            placeholder={paintFieldText}
             onChange={(e) => setField("paintName", e.target.value)}
             isInvalid={errors.paintName}
           />
@@ -70,7 +84,7 @@ const PaintForm = () => {
             onChange={(e) => setField("status", e.target.value)}
             isInvalid={errors.status}
           >
-            <option value="">Select Status:</option>
+            <option value="">{statusFieldText}</option>
             <option value="Available">Available</option>
             <option value="Low">Low</option>
             <option value="Out of Stock">Out of Stock</option>
@@ -81,7 +95,7 @@ const PaintForm = () => {
         </Form.Group>
       </Row>
       <Button variant="primary" type="submit" xs={6} className="mt-2">
-        Add Paint
+        {submitBttnText}
       </Button>
     </Form>
   );

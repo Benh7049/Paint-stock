@@ -21,7 +21,12 @@ const App = () => {
           <>{paintList && <SwimLane paintList={paintList}></SwimLane>}</>
         </Col>
         <Col className="content-col" xs={8}>
-          <PaintForm></PaintForm>
+          <PaintForm
+            submitBttnText={"Add Paint"}
+            statusFieldText={"Select status"}
+            paintFieldText={"Enter paint name"}
+            method={'POST'}
+          ></PaintForm>
         </Col>
       </Row>
     </Container>

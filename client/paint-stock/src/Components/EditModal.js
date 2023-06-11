@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import { Button, Modal, Form, Col, Row } from "react-bootstrap";
 import Axios from "axios";
+import PaintForm from "./PaintForm";
 
 const EditModal = ({ Paint}) => {
   const [show, setShow] = useState(false);
@@ -63,42 +64,16 @@ const EditModal = ({ Paint}) => {
         <Modal.Header closeButton>
           <Modal.Title>Edit {Paint.paintName} paint</Modal.Title>
         </Modal.Header>
-        <Row>
-          <Form.Group as={Col}>
-            <Form.Control
-              type="text"
-              placeholder="Enter new paint name"
-              onChange={(e) => setField("paintName", e.target.value)}
-              isInvalid={errors.paintName}
-            />
-            <Form.Control.Feedback type="invalid">
-              {errors.paintName}
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Row>
-        <Row className="mt-3">
-          <Form.Group as={Col}>
-            <Form.Control
-              as="select"
-              onChange={(e) => setField("status", e.target.value)}
-              isInvalid={errors.status}
-            >
-              <option value="">Select New Status:</option>
-              <option value="Available">Available</option>
-              <option value="Low">Low</option>
-              <option value="Out of Stock">Out of Stock</option>
-            </Form.Control>
-            <Form.Control.Feedback type="invalid">
-              {errors.status}
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Row>
+        <PaintForm xs={10}
+            submitBttnText={"Update Paint"}
+            statusFieldText={"Select new status"}
+            paintFieldText={"Enter new paint name"}
+            paintID={Paint.id}
+            method={'PUT'}
+          ></PaintForm>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
-          </Button>
-          <Button variant="primary" onClick={handleSubmit}>
-            Update
           </Button>
         </Modal.Footer>
       </Modal>
