@@ -11,7 +11,7 @@ const PaintCard = (props) => {
   };
   return (
     <div className="mb-2">
-      <p>{props.paint.paintName}</p>
+      <p>{props.paint.paintname}</p>
       <Row>
         <Col xs={12} className="mb-2">
           <EditModal Paint={props.paint} getData={props.getData}>Edit</EditModal>

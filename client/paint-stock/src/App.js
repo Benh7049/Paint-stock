@@ -6,14 +6,13 @@ import { useEffect, useState, createContext, useContext } from "react";
 import Axios from "axios";
 const App = () => {
   const [paintList, setPaintList] = useState(null);
-  const dataContext = createContext();
   useEffect(() => {
     getData();
   }, []);
 
   const getData = () => {
     Axios.get("http://localhost:5000/api/paint").then((res) => {
-      setPaintList(res.data);
+      setPaintList(res.data.rows);
     });
   };
   return (
