@@ -22,3 +22,5 @@ client/paint-stock/.env.production.local
 client/paint-stock/npm-debug.log*
 client/paint-stock/yarn-debug.log*
 client/paint-stock/yarn-error.log*
+
+.env

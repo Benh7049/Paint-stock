@@ -1,17 +1,18 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+require('dotenv').config();
 const mysql = require("mysql2");
 const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-//todo add .env
+
 const db = mysql.createConnection({
-  user: "root",
-  host: "localhost",
-  password: "root",
-  database: "paintdb",
+  user: process.env.user,
+  host: process.env.host,
+  password: process.env.password,
+  database: process.env.database
 });
 
 app.listen(5000, () => {
