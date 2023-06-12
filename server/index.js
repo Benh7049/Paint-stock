@@ -1,69 +1,77 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-require('dotenv').config();
+require("dotenv").config();
 const mysql = require("mysql2");
 const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+const { Client } = require("pg");
 
-const db = mysql.createConnection({
-  user: process.env.user,
-  host: process.env.host,
-  password: process.env.password,
-  database: process.env.database
+const client = new Client({
+  connectionString: process.env.URI,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
+
+client.connect();
+
+// client.query("SELECT * FROM paints;", (err, res) => {
+//   if (err) throw err;
+//   for (let row of res.rows) {
+//     console.log(JSON.stringify(row));
+//   }
+// });
 
 app.listen(5000, () => {
   console.log("server started on port 5000");
 });
 
-app.get("/api/paint", (req, res) => {
-  db.query("SELECT * FROM paints", (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.send(result);
-    }
-  });
-});
-
-app.post("/api/paint", (req, res) => {
-  const { paintName, status } = req.body;
-  db.query(
-    "INSERT INTO paints (paintName,status) VALUES (?,?)",
-    [paintName, status],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      }
+app.get("/api/paint", (req, result) => {
+  client.query(
+    "SELECT * FROM paints",
+    (err, res) => {
+      if (err) console.log(err);
+      result.send(res)
     }
   );
 });
 
-app.delete("/api/paint/:id", (req, res) => {
-  const id = req.params.id;
-  db.query("DELETE FROM paints WHERE id = ?", id, (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.send(result);
+app.post("/api/paint", (req, result) => {
+  const { paintName, status } = req.body;
+  client.query(
+    "INSERT INTO paints(paintname,status) VALUES ($1, $2) RETURNING *",
+    [paintName, status],
+    (err, res) => {
+      if (err) console.log(err);
     }
-  });
+  );
 });
 
-app.put("/api/paint/:id", (req, res) => {
+app.delete("/api/paint/:id", (req, result) => {
+  const id = req.params.id;
+  client.query(
+    "DELETE FROM paints WHERE id = $1",
+    [id],
+    (err, res) => {
+      if (err) console.log(err);
+    }
+  );
+});
+
+app.put("/api/paint/:id", (req, result) => {
   const id = req.params.id;
   const { paintName, status } = req.body;
-  db.query(
-    "UPDATE paints SET paintName = ?, status= ? WHERE id = ?",
+  client.query(
+    "UPDATE paints SET paintname = $1, status = $2 WHERE id = $3",
     [paintName, status, id],
-    (err, result) => {
+    (err, res) => {
       if (err) {
         console.log(err);
       } else {
-        res.send(result);
+        result.send(res);
       }
     }
   );
