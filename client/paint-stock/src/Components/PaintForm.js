@@ -2,13 +2,7 @@ import { React, useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import Axios from "axios";
 
-const PaintForm = ({
-  paintFieldText,
-  statusFieldText,
-  submitBttnText,
-  method,
-  paintID
-}) => {
+const PaintForm = (props) => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
 
@@ -46,20 +40,25 @@ const PaintForm = ({
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
     } else {
-      if (method === "POST") {
+      //send post or put req to server depending on method value
+      if (props.method === "POST") {
         postPaint();
-      } else if (method == "PUT") {
-        editPaint(paintID);
+      } else if (props.method == "PUT") {
+        editPaint(props.paintID);
       }
     }
   };
 
   const postPaint = () => {
     Axios.post("http://localhost:5000/api/paint", form);
+    //update paint state
+    props.getData()
   };
 
   const editPaint = (id) => {
     Axios.put(`http://localhost:5000/api/paint/${id}`, form);
+    //update paint state
+    props.getData()
   };
 
   return (
@@ -68,7 +67,7 @@ const PaintForm = ({
         <Form.Group as={Col}>
           <Form.Control
             type="text"
-            placeholder={paintFieldText}
+            placeholder={props.paintFieldText}
             onChange={(e) => setField("paintName", e.target.value)}
             isInvalid={errors.paintName}
           />
@@ -84,7 +83,7 @@ const PaintForm = ({
             onChange={(e) => setField("status", e.target.value)}
             isInvalid={errors.status}
           >
-            <option value="">{statusFieldText}</option>
+            <option value="">{props.statusFieldText}</option>
             <option value="Available">Available</option>
             <option value="Low">Low</option>
             <option value="Out of Stock">Out of Stock</option>
@@ -95,7 +94,7 @@ const PaintForm = ({
         </Form.Group>
       </Row>
       <Button variant="primary" type="submit" xs={6} className="mt-2">
-        {submitBttnText}
+        {props.submitBttnText}
       </Button>
     </Form>
   );

@@ -3,19 +3,21 @@ import { Button, Card, Row, Col } from "react-bootstrap";
 import EditModal from "./EditModal";
 import Axios from "axios";
 
-const PaintCard = ({ paint }) => {
+const PaintCard = (props) => {
   const deletePaint = (id) => {
     Axios.delete(`http://localhost:5000/api/paint/${id}`);
+    //update paint state
+    props.getData()
   };
   return (
     <div className="mb-2">
-      <p>{paint.paintName}</p>
+      <p>{props.paint.paintName}</p>
       <Row>
         <Col xs={12} className="mb-2">
-          <EditModal Paint={paint}>Edit</EditModal>
+          <EditModal Paint={props.paint} getData={props.getData}>Edit</EditModal>
         </Col>
         <Col xs={12} className="mb-2">
-          <Button onClick={() => deletePaint(paint.id)}>Remove</Button>
+          <Button onClick={() => deletePaint(props.paint.id)}>Remove</Button>
         </Col>
       </Row>
     </div>
