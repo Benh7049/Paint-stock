@@ -1,12 +1,15 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "engines": {
+    "node": "18.15"
+  },
   "proxy": "http://localhost:5000",
   "description": "",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server",
+    "start": "(cd ./server && node index.js)",
     "dev": "nodemon server"
   },
   "author": "",
