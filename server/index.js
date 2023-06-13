@@ -10,7 +10,7 @@ app.use(express.json());
 const { Client } = require("pg");
 
 const client = new Client({
-  connectionString: process.env.URI,
+  connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false,
   },
@@ -31,6 +31,19 @@ app.get('/', (req, res) => {
     .send('Hello server is running')
     .end();
 });
+
+app.get('/db', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const result = await client.query('SELECT * FROM paints');
+    const results = { 'results': (result) ? result.rows : null};
+    res.render('pages/db', results );
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
 
 // Start the server
 const PORT = process.env.PORT || 5000;
