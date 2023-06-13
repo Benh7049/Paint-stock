@@ -11,7 +11,7 @@ const App = () => {
   }, []);
 
   const getData = () => {
-    Axios.get("http://localhost:5000/api/paint").then((res) => {
+    Axios.get("https://quiet-fjord-53579.herokuapp.com/api/paint").then((res) => {
       setPaintList(res.data.rows);
     });
   };

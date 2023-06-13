@@ -5,7 +5,7 @@ import Axios from "axios";
 
 const PaintCard = (props) => {
   const deletePaint = (id) => {
-    Axios.delete(`http://localhost:5000/api/paint/${id}`);
+    Axios.delete(`https://quiet-fjord-53579.herokuapp.com/${id}`);
     //update paint state
     props.getData()
   };

@@ -50,13 +50,13 @@ const PaintForm = (props) => {
   };
 
   const postPaint = () => {
-    Axios.post("http://localhost:5000/api/paint", form);
+    Axios.post("https://quiet-fjord-53579.herokuapp.com/api/paint", form);
     //update paint state
     props.getData()
   };
 
   const editPaint = (id) => {
-    Axios.put(`http://localhost:5000/api/paint/${id}`, form);
+    Axios.put(`https://quiet-fjord-53579.herokuapp.com/api/paint/${id}`, form);
     //update paint state
     props.getData()
   };
